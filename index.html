@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102a24">
+  <meta name="description" content="BLOUNCER FINANCE - Personal & Business Finance">
+  <title>BLOUNCER FINANCE</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">B</div><div><b>BLOUNCER</b><small>FINANCE</small></div></div>
+    <div class="workspace-label">WORKSPACE</div>
+    <button class="scope active" data-scope="personal">◉ <span>Personal Finance</span></button>
+    <button class="scope" data-scope="business">▣ <span>Business Finance</span></button>
+    <div class="nav-label">MENU UTAMA</div>
+    <button class="nav-item active" data-view="dashboard">⌂ <span>Dashboard</span></button>
+    <button class="nav-item" data-view="transactions">↕ <span>Transaksi</span></button>
+    <button class="nav-item" data-view="wallets">▤ <span>Dompet</span></button>
+    <button class="nav-item" data-view="budgets">◎ <span>Anggaran</span></button>
+    <button class="nav-item" data-view="reports">▥ <span>Laporan</span></button>
+    <button class="nav-item" data-view="settings">⚙ <span>Pengaturan & Backup</span></button>
+    <div class="sidebar-foot">PRIVATE FINANCE SPACE<br><span>Data tersimpan di perangkat ini</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-brand" id="menuToggle">☰</button>
+      <div><div class="eyebrow">FINANCIAL OVERVIEW</div><h1 id="pageTitle">Dashboard</h1></div>
+      <div class="top-actions"><span class="offline-pill"><i></i> OFFLINE READY</span><button class="primary" id="quickAdd">＋ Tambah transaksi</button></div>
+    </header>
+
+    <section class="content">
+      <div class="welcome-row">
+        <div><p class="muted" id="dateLabel"></p><h2 id="welcomeTitle">Ringkasan keuangan pribadi</h2><p class="muted">Pantau uang masuk, uang keluar, dan saldo dalam satu tempat.</p></div>
+        <div class="scope-badge" id="scopeBadge">PERSONAL</div>
+      </div>
+
+      <section id="dashboardView" class="view">
+        <div class="cards">
+          <article class="metric-card dark"><div class="metric-top"><span>Total saldo</span><span>◉</span></div><strong id="totalBalance">Rp0</strong><small>Saldo seluruh dompet pada ruang ini</small></article>
+          <article class="metric-card"><div class="metric-top"><span>Pemasukan bulan ini</span><span class="icon-green">↗</span></div><strong id="totalIncome">Rp0</strong><small class="positive">Uang masuk bulan berjalan</small></article>
+          <article class="metric-card"><div class="metric-top"><span>Pengeluaran bulan ini</span><span class="icon-red">↘</span></div><strong id="totalExpense">Rp0</strong><small class="negative">Uang keluar bulan berjalan</small></article>
+          <article class="metric-card"><div class="metric-top"><span>Selisih bulan ini</span><span>◇</span></div><strong id="netTotal">Rp0</strong><small> Pemasukan dikurangi pengeluaran</small></article>
+        </div>
+        <div class="grid-two">
+          <article class="panel"><div class="panel-head"><div><h3>Transaksi terbaru</h3><p>Aktivitas keuangan terakhir</p></div><button class="text-button" data-goto="transactions">Lihat semua →</button></div><div id="recentList" class="list-empty">Belum ada transaksi. Mulai dengan mencatat transaksi pertamamu.</div></article>
+          <article class="panel"><div class="panel-head"><div><h3>Dompet saya</h3><p>Ringkasan saldo setiap dompet</p></div><button class="text-button" data-goto="wallets">Kelola →</button></div><div id="walletSummary" class="list-empty">Belum ada dompet.</div></article>
+        </div>
+        <article class="panel tip"><div class="tip-icon">✦</div><div><b>Catat dengan disiplin, kendalikan dengan data.</b><p>Mulailah dengan membuat dompet, lalu masukkan transaksi. Transfer antardompet tidak dihitung sebagai pemasukan atau pengeluaran.</p></div></article>
+      </section>
+
+      <section id="transactionsView" class="view hidden">
+        <div class="section-toolbar"><div><h2>Daftar transaksi</h2><p class="muted">Catatan pemasukan dan pengeluaran untuk ruang aktif.</p></div><button class="primary" id="addTransaction">＋ Transaksi baru</button></div>
+        <div class="panel"><div class="filters"><input id="transactionSearch" placeholder="Cari catatan atau kategori..."><select id="typeFilter"><option value="all">Semua jenis</option><option value="income">Pemasukan</option><option value="expense">Pengeluaran</option></select></div><div id="transactionTable"></div></div>
+      </section>
+
+      <section id="walletsView" class="view hidden">
+        <div class="section-toolbar"><div><h2>Dompet</h2><p class="muted">Pisahkan uang tunai, rekening, dan e-wallet.</p></div><button class="primary" id="addWallet">＋ Tambah dompet</button></div>
+        <div id="walletGrid" class="wallet-grid"></div>
+        <div class="panel transfer-panel"><div><h3>Transfer antardompet</h3><p class="muted">Perpindahan saldo tidak dianggap pemasukan atau pengeluaran.</p></div><button class="secondary" id="transferBtn">⇄ Transfer saldo</button></div>
+      </section>
+
+      <section id="budgetsView" class="view hidden">
+        <div class="section-toolbar"><div><h2>Anggaran</h2><p class="muted">Tetapkan batas pengeluaran per kategori. (Tahap berikutnya)</p></div></div>
+        <div class="panel placeholder"><div class="placeholder-icon">◎</div><h3>Rencanakan sebelum membelanjakan</h3><p>Modul anggaran akan dikembangkan setelah transaksi dan dompet stabil.</p></div>
+      </section>
+
+      <section id="reportsView" class="view hidden">
+        <div class="section-toolbar"><div><h2>Laporan</h2><p class="muted">Ringkasan berdasarkan transaksi yang tercatat.</p></div></div>
+        <div class="cards report-cards"><article class="metric-card"><span>Total pemasukan sepanjang waktu</span><strong id="allIncome">Rp0</strong></article><article class="metric-card"><span>Total pengeluaran sepanjang waktu</span><strong id="allExpense">Rp0</strong></article></div>
+        <div class="panel"><h3>Catatan laporan</h3><p class="muted">Angka laporan mengikuti ruang aktif (Personal atau Business). Transfer antardompet dikecualikan.</p></div>
+      </section>
+
+      <section id="settingsView" class="view hidden">
+        <div class="section-toolbar"><div><h2>Pengaturan & Backup</h2><p class="muted">Data tersimpan lokal di browser perangkat ini.</p></div></div>
+        <div class="panel settings-panel"><h3>Cadangkan data</h3><p class="muted">Unduh file JSON untuk memindahkan data ke perangkat lain atau menyimpan salinan.</p><div class="button-row"><button class="primary" id="exportBtn">↓ Ekspor backup</button><label class="secondary file-label">↑ Impor backup<input type="file" id="importFile" accept="application/json"></label></div><p class="warning">Penting: HP dan laptop memiliki penyimpanan masing-masing. Data tidak otomatis tersinkronisasi. Simpan backup secara berkala.</p></div>
+        <div class="panel"><h3>Informasi aplikasi</h3><p>BLOUNCER FINANCE · Versi awal 0.1</p><p class="muted">Tanpa akun, tanpa server, tanpa biaya domain atau hosting. Jangan hapus data browser sebelum membuat backup.</p></div>
+      </section>
+    </section>
+    <footer>© BLOUNCER FINANCE <span>Take Control of Your Money.</span></footer>
+  </main>
+
+  <dialog id="transactionDialog">
+    <form method="dialog" id="transactionForm">
+      <div class="dialog-head"><div><div class="eyebrow">CATAT KEUANGAN</div><h2>Tambah transaksi</h2></div><button class="close" value="cancel" aria-label="Tutup">×</button></div>
+      <div class="type-switch"><label><input type="radio" name="kind" value="income" checked><span>Pemasukan</span></label><label><input type="radio" name="kind" value="expense"><span>Pengeluaran</span></label></div>
+      <label>Nominal (Rp)<input name="amount" type="number" min="1" step="1" required placeholder="Contoh: 50000"></label>
+      <div class="form-row"><label>Dompet<select name="wallet" id="transactionWallet" required></select></label><label>Tanggal<input name="date" type="date" required></label></div>
+      <div class="form-row"><label>Kategori<select name="category"><option>Makan & minum</option><option>Transportasi</option><option>Pendidikan</option><option>Belanja</option><option>Tagihan</option><option>Kesehatan</option><option>Gaji / pendapatan</option><option>Bisnis</option><option>Sedekah</option><option>Lainnya</option></select></label><label>Catatan<input name="note" placeholder="Opsional"></label></div>
+      <div class="dialog-actions"><button class="secondary" value="cancel">Batal</button><button class="primary" id="saveTransaction" value="default">Simpan transaksi</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="walletDialog">
+    <form method="dialog" id="walletForm">
+      <div class="dialog-head"><div><div class="eyebrow">KELOLA SALDO</div><h2>Tambah dompet</h2></div><button class="close" value="cancel">×</button></div>
+      <label>Nama dompet<input name="name" required placeholder="Contoh: BRI, Tunai, DANA"></label>
+      <label>Jenis dompet<select name="type"><option>Uang tunai</option><option>Bank</option><option>E-wallet</option><option>Lainnya</option></select></label>
+      <label>Saldo awal (Rp)<input name="balance" type="number" min="0" step="1" value="0" required></label>
+      <div class="dialog-actions"><button class="secondary" value="cancel">Batal</button><button class="primary" id="saveWallet" value="default">Simpan dompet</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="transferDialog">
+    <form method="dialog" id="transferForm">
+      <div class="dialog-head"><div><div class="eyebrow">PINDAH SALDO</div><h2>Transfer antardompet</h2></div><button class="close" value="cancel">×</button></div>
+      <label>Dari dompet<select name="from" id="transferFrom" required></select></label>
+      <label>Ke dompet<select name="to" id="transferTo" required></select></label>
+      <label>Nominal (Rp)<input name="amount" type="number" min="1" required></label>
+      <label>Tanggal<input name="date" type="date" required></label>
+      <div class="dialog-actions"><button class="secondary" value="cancel">Batal</button><button class="primary" id="saveTransfer" value="default">Transfer</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
